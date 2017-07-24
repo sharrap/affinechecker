@@ -1,4 +1,4 @@
-Affine Pointer Analysis for Checker
+# Affine Pointer Analysis for Checker
 
 This is the beginnings of a Rust-like borrow checker as a pluggable type system for Java, done as a final project for a type systems course. It is implemented using the [Checker Framework](https://github.com/typetools/checker-framework).
 
