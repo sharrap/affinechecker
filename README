@@ -1,10 +1,8 @@
 Affine Pointer Analysis for Checker
 
-This is the beginnings of a Rust-like borrow checker as a pluggable type system for Java,
-done as a final project for a type systems course. It is implemented using the [Checker Framework](https://github.com/typetools/checker-framework).
+This is the beginnings of a Rust-like borrow checker as a pluggable type system for Java, done as a final project for a type systems course. It is implemented using the [Checker Framework](https://github.com/typetools/checker-framework).
 
-This was largely intended as a proof-of-concept and to see how hard doing this would be in Checker,
-and it suffers from some very notable issues at present:
+This was largely intended as a proof-of-concept and to see how hard doing this would be in Checker, and it suffers from some very notable issues at present:
 
 * Everything must be annotated or else it is marked @Unusable by default. This was a hack to fix an issue with Checker. This would be annoying to use in practice, but is fine for our purposes since we are only testing.
 * Fields are currently unsupported.
