@@ -1,0 +1,45 @@
+#!/bin/bash
+
+#A very sketchy unit test system emphasizing speed (of implementation) over quality.
+
+#We want to run every test found
+#in ../affine/test/ using runjavac.
+
+#We should expect to see:
+#  * No errors without "BAD" at the end.
+#  * A total number of errors equal to the number of "BAD" in the file.
+#If either of these are violated, print the results.
+
+OUTPUT=$(mktemp)
+ERROR=$(mktemp)
+EMPTY=$(mktemp)
+
+for TEST in ../affine/test/*.java; do
+  TESTNAME=$(basename ${TEST%.java})
+  echo "Running test: $TESTNAME"
+  ./runjavac "$TEST" 1> "$OUTPUT" 2> "$ERROR"
+
+  EXPECTEDERRORS=$(grep -Fo "BAD" "$TEST" | wc -w)
+  
+  #Compute actual errors
+  TAIL=$(tail -1 "$ERROR")
+  read -a array <<< "$TAIL"
+  ACTUALERRORS=${array[0]}
+  if [ -z "$ACTUALERRORS" ]; then
+    ACTUALERRORS=0
+  fi
+
+  ACTUALBADS=$(grep -Fo "BAD" "$ERROR" | wc -w)
+  if [ "$EXPECTEDERRORS" -ne "$ACTUALERRORS" -o "$ACTUALBADS" -ne "$ACTUALERRORS" ]; then
+    echo "Test failed: $TESTNAME"
+    cat "$ERROR"
+  fi
+  if ! diff "$EMPTY" "$OUTPUT" &> /dev/null; then
+    echo "Test $TESTNAME had nonempty output on stdout: "
+    cat "$OUTPUT"
+  fi
+done
+
+rm "$OUTPUT"
+rm "$ERROR"
+rm "$EMPTY"

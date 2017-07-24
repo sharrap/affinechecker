@@ -1,0 +1,10 @@
+#!/bin/bash
+
+#Runs the checker.
+
+BOOTCLASSPATH="-Xbootclasspath/p:/Users/sharrap/Documents/Programming/checker-framework-2.1.12/checker/dist/jdk8.jar"
+PROCESSOR="affine.AffineChecker"
+TESTFILE="$1"
+CP="$CLASSPATH:/Users/sharrap/Documents/workspace/JBorrow/bin:/Users/sharrap/Documents/Programming/checker-framework-2.1.12/checker/dist/checker.jar:/Users/sharrap/Documents/Programming/checker-framework-2.1.12/checker/dist/javac.jar"
+
+javac $BOOTCLASSPATH -processor $PROCESSOR -classpath $CP -AprintErrorStack $OTHEROPTS $TESTFILE
